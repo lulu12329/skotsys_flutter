@@ -21,18 +21,23 @@ class NavigationDrawer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                /* Text(
                   "image",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                     color: Colors.white,
                   ),
+                ), */
+                Image(
+                  image: AssetImage("assets/images/SkotSys_Meteor.png"),
+                  height: 50,
                 ),
                 Text(
                   "Skotsys",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    fontSize: 20,
                   ),
                 )
               ],
