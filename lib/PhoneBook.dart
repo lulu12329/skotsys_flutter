@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kotsys_flutter/NavigationDrawer.dart';
 
+import 'CustomAppBar.dart';
+
 
 class Phonebook extends StatefulWidget {
   Phonebook({Key? key}) : super(key: key);
@@ -11,12 +13,13 @@ class Phonebook extends StatefulWidget {
 
 class _PhonebookdState extends State<Phonebook> {
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Phonebook"),
-      ),
+      key: _scaffoldKey,
+      appBar: CustomAppBar.build(_scaffoldKey, "Phonebook"),
       drawer: NavigationDrawer(context: context,),
       body: Center(
         child: Text("Phonebook"),
