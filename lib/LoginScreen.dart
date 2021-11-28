@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kotsys_flutter/LocalStore.dart';
 
 import 'Dashboard.dart';
+import 'backend.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -22,11 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
-              children: [
-                Text("LOGO"),
-                Text("SkotSys"),
-              ],
-            ),
+            children: [
+              //Text("LOGO"),
+              Text("SkotSys"),
+            ],
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -36,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Text("Passwort"),
               TextField(
-                onChanged: (s) => {username = s},
+                onChanged: (s) => {password = s},
               ),
               TextButton(
                 onPressed: login,
@@ -49,12 +50,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void login() {
-    LocalStore.writeUser(username);
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => Dashboard()),
-      (Route<dynamic> route) => false,
-    );
+  void login() async {
+    Backend backend = Backend();
+    String result = await backend.signIn(username, password);
+    if (result.isEmpty) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Dashboard()),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      //TODO: display error message
+    }
   }
 }

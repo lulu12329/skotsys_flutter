@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kotsys_flutter/NavigationDrawer.dart';
 import 'package:kotsys_flutter/backend.dart';
-import 'package:kotsys_flutter/cleaningPlan/CleaningRoom.dart';
 
 import '../CustomAppBar.dart';
 import '../User.dart';
-
 
 class CleaningPlan extends StatefulWidget {
   CleaningPlan({Key? key}) : super(key: key);
@@ -15,7 +13,6 @@ class CleaningPlan extends StatefulWidget {
 }
 
 class _CleaningPlandState extends State<CleaningPlan> {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -32,13 +29,11 @@ class _CleaningPlandState extends State<CleaningPlan> {
       ),
     );
   }
-  
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
-    Backend().getCleaningPlanData().then((value) => {
-      
-    });
+    Backend().getCleaningPlanData().then((value) => {});
   }
 }

@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
+import 'LocalStore.dart';
+
 class Backend {
   static final Backend _instance = Backend._internal();
   final String _backendAddress = "";
   String _token = "";
+  static final http.Client httpClient = http.Client();
 
   Backend._internal();
 
@@ -13,73 +16,59 @@ class Backend {
     return _instance;
   }
 
-  Future<String> signIn(
-      http.Client client, String phonenumber, String kundenNr) async {
+  Future<String> signIn(String username, String password) async {
+    //build request
     var body = {
-      "username": "$phonenumber",
-      "password": "$kundenNr",
+      "username": "$username",
+      "password": "$password",
     };
     Uri uri = Uri.parse(_backendAddress);
-    http.Response response = await client.post(uri,
+    //send request
+    http.Response response = await httpClient.post(uri,
         body: json.encode(body),
         headers: {HttpHeaders.contentTypeHeader: "application/json"});
     //handling response
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
-      var token = responseBody['data']['card'][0]['number'];
-      return "";
+      _token = responseBody['token'];
+      LocalStore.writeUser(username, _token);
+      return '';
     } else {
-      return "Telefonnummer ist ungültig";
+      //TODO handle error
+      return 'something went wrong';
     }
   }
 
-  Future<String> getCleaningPlanData(
-      http.Client client, String phonenumber, String kundenNr) async {
-    var body = {
-      "phone": "$phonenumber",
-      "kundenNr": "$kundenNr",
-    };
-    Uri uri = Uri.parse(_backendAddress);
-    http.Response response = await client.post(uri,
-        body: json.encode(body),
-        headers: {HttpHeaders.contentTypeHeader: "application/json"});
+  Future<String> getCleaningPlanData() async {
+    String route = "cleaning_plan";
+    http.Response response = await _get(route);
     //handling response
     if (response.statusCode == 200) {
-      final responseBody = json.decode(response.body);
-      var token = responseBody['data']['card'][0]['number'];
+      //TODO successfull handle response
       return "";
     } else {
+      //TODO handle http error
       return "Telefonnummer ist ungültig";
     }
   }
 
-  Future<http.Response> _post(http.Client client,String path,Object body){
-    if(_token == "")
-      throw new Exception();
-    
+  Future<http.Response> _post(String path, Object body) {
+    if (_token == "") throw new Exception();
+
     Uri uri = Uri.http("bearer:@$_backendAddress", "/path");
-    return client.post(uri,
-    headers: {HttpHeaders.contentTypeHeader:"application/json"},
-    body: json.encode(body)
-    );
+    return httpClient.post(uri,
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          HttpHeaders.authorizationHeader: 'Bearer $_token'
+        },
+        body: json.encode(body));
   }
 
-  Future<String> getCleaningPlanData2(String phonenumber, String kundenNr) async {
-    var body = {
-      "phone": "$phonenumber",
-      "kundenNr": "$kundenNr",
-    };
-    Uri uri = Uri.parse(_backendAddress);
-    http.Response response = await client.post(uri,
-        body: json.encode(body),
-        headers: {HttpHeaders.contentTypeHeader: "application/json"});
-    //handling response
-    if (response.statusCode == 200) {
-      final responseBody = json.decode(response.body);
-      var token = responseBody['data']['card'][0]['number'];
-      return "";
-    } else {
-      return "Telefonnummer ist ungültig";
-    }
+  Future<http.Response> _get(String path) {
+    Uri uri = Uri.http("bearer:@$_backendAddress", "/path");
+    return httpClient.get(uri, headers: {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: 'Bearer $_token'
+    });
   }
 }
