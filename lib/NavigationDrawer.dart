@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kotsys_flutter/CleainingPlan.dart';
+import 'package:kotsys_flutter/CleaningPlan/CleainingPlan.dart';
 import 'package:kotsys_flutter/Dashboard.dart';
 import 'package:kotsys_flutter/Home.dart';
 import 'package:kotsys_flutter/PhoneBook.dart';
