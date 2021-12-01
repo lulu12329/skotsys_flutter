@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_timetable_view/flutter_timetable_view.dart';
 import 'package:kotsys_flutter/NavigationDrawer.dart';
-import 'package:kotsys_flutter/backend.dart';
+import 'package:kotsys_flutter/services/backend.dart';
 
 import '../CustomAppBar.dart';
 import '../User.dart';
+import 'Cleaner.dart';
 
 class CleaningPlan extends StatefulWidget {
   CleaningPlan({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class CleaningPlan extends StatefulWidget {
 
 class _CleaningPlandState extends State<CleaningPlan> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  List<Cleaner> cleaners = new List.empty();
+  List<LaneEvents> laneEvents = new List.empty();
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +28,8 @@ class _CleaningPlandState extends State<CleaningPlan> {
       key: _scaffoldKey,
       appBar: CustomAppBar.build(_scaffoldKey, "CleaningPlan"),
       drawer: NavigationDrawer(context: context),
-      body: Center(
-        child: Text("CleaningPlan"),
+      body: TimetableView(
+        laneEventsList: laneEvents,
       ),
     );
   }
@@ -34,6 +38,24 @@ class _CleaningPlandState extends State<CleaningPlan> {
   void initState() {
     super.initState();
 
-    Backend().getCleaningPlanData().then((value) => {});
+    HttpClientHelper().getCleaningPlanData().then((data) {
+      data.cleaners.forEach((cleaner) {
+        List<TableEvent> tableEvents = new List.empty();
+        cleaner.roomsToClean.forEach((roomToClean) {
+          tableEvents.add(
+            TableEvent(
+              title: roomToClean.state,
+              start: TableEventTime(
+                  hour: roomToClean.start.hour,
+                  minute: roomToClean.start.minute),
+              end: TableEventTime(
+                  hour: roomToClean.end.hour, minute: roomToClean.end.minute),
+            ),
+          );
+        });
+        laneEvents.add(
+            LaneEvents(lane: Lane(name: cleaner.name), events: tableEvents));
+      });
+    });
   }
 }

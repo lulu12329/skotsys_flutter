@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kotsys_flutter/LocalStore.dart';
+import 'package:kotsys_flutter/services/loginService.dart';
 
-import 'Dashboard.dart';
-import 'backend.dart';
+import '../Dashboard.dart';
+import '../services/backend.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -43,6 +43,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: login,
                 child: Text("Login"),
               ),
+              Text(
+                'login failed',
+                style: TextStyle(color: Colors.red),
+              )
             ],
           ),
         ],
@@ -51,16 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() async {
-    Backend backend = Backend();
-    String result = await backend.signIn(username, password);
-    if (result.isEmpty) {
+    try {
+      await LoginService.login(username, password);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => Dashboard()),
         (Route<dynamic> route) => false,
       );
-    } else {
-      //TODO: display error message
-    }
+    } catch (_) {}
   }
 }

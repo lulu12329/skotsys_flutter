@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import './LocalStore.dart';
 import 'package:kotsys_flutter/Dashboard.dart';
-import 'package:kotsys_flutter/LoginScreen.dart';
+import 'package:kotsys_flutter/loginScreen/LoginScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _SplashScreendState extends State<SplashScreen> {
     MaterialPageRoute nextPage;
     if (t == "") {
       nextPage = MaterialPageRoute(builder: (context) => LoginScreen());
-    }else{
+    } else {
       nextPage = MaterialPageRoute(builder: (context) => Dashboard());
     }
 
