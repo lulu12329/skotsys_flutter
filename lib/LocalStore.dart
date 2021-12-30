@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:kotsys_flutter/User.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LocalStore {
@@ -12,10 +14,10 @@ class LocalStore {
     return File('$path/token.txt');
   }
 
-  static Future<File> writeUser(String username, String token) async {
+  static Future<File> writeUser() async {
     final file = await _localFile;
-    //TODO store username and token
-    return file.writeAsString(username);
+    String jsonString = json.encode(User().toJsonWithToken());
+    return file.writeAsString(jsonString);
   }
 
   static Future<String> readUser() async {

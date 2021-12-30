@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:kotsys_flutter/User.dart';
 import 'package:kotsys_flutter/services/backend.dart';
 
 import '../LocalStore.dart';
@@ -15,7 +16,7 @@ class LoginService {
 
     //build requestBody
     var body = {
-      "username": "$username",
+      "login": "$username",
       "password": "$password",
     };
     //send request
@@ -26,11 +27,10 @@ class LoginService {
     );
 
     //handling response
-    if (response.statusCode == 200) {
-      dynamic responseBody = json.decode(response.body);
-      final token = responseBody['token'];
-      httpClientHelper.token = token;
-      LocalStore.writeUser(username, token);
+    if (response.statusCode == 201) {
+      dynamic responseBody = json.decode(response.body)["data"];
+      User().fromJson(responseBody);
+      httpClientHelper.token = User().token;
     } else {
       throw new Exception('Login failed');
     }

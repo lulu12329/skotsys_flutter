@@ -7,7 +7,7 @@ import 'package:kotsys_flutter/cleaningPlan/Room.dart';
 
 class HttpClientHelper {
   static final HttpClientHelper _instance = HttpClientHelper._internal();
-  final String serverAddress = "";
+  final String serverAddress = "http://192.168.10.94:3000/";
   String token = "";
   static final http.Client httpClient = http.Client();
 

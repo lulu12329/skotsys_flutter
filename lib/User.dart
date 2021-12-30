@@ -1,36 +1,42 @@
 import 'dart:convert';
 
+import 'package:kotsys_flutter/LocalStore.dart';
+
 class User {
-  String id = "";
-  String name = "";
+  int id = 0;
+  String username = "";
   String email = "";
   String token = "";
+  List<String> permissions = [];
   static final User _instance = User._internal();
 
   User._internal();
 
-  factory User(){
+  factory User() {
     return _instance;
   }
 
-  User.fromJson(String jsonString) {
-    Map<String, dynamic> json = jsonDecode(jsonString);
-    name = json['name'];
+  void fromJson(Map<String, dynamic> json) {
+    username = json['username'];
     email = json['email'];
     id = json['id'];
     token = json['token'];
+    permissions = _permissionsFromJson(json['permissions']);
+    LocalStore.writeUser();
   }
 
-  Map<String,dynamic> toJson() => {
-    'name' : name,
-    'email' : email,
-    'id': id,
-  };
+  List<String> _permissionsFromJson(dynamic permissions) {
+    List<dynamic> list = permissions != null ? List.from(permissions) : [];
+    return list.map((e) => e.toString()).toList();
+  }
 
-   Map<String,dynamic> toJsonWithToken() => {
-    'name' : name,
-    'email' : email,
-    'id': id,
-    'token': token,
-  };
+  Map<String, dynamic> toJsonWithToken() {
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'token': token,
+      'permissions': permissions
+    };
+  }
 }

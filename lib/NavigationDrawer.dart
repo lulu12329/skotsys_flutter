@@ -4,7 +4,7 @@ import 'package:kotsys_flutter/Dashboard.dart';
 import 'package:kotsys_flutter/Home.dart';
 import 'package:kotsys_flutter/LocalStore.dart';
 import 'package:kotsys_flutter/PhoneBook.dart';
-import 'package:kotsys_flutter/SplashScreen.dart';
+import 'package:kotsys_flutter/loginScreen/LoginScreen.dart';
 
 class NavigationDrawer extends StatelessWidget {
   NavigationDrawer({required this.context});
@@ -134,7 +134,7 @@ class NavigationDrawer extends StatelessWidget {
     LocalStore.deleteuUser();
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
       builder: (context) {
-        return SplashScreen();
+        return LoginScreen();
       },
     ), (Route<dynamic> route) => false);
   }
