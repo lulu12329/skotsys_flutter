@@ -12,7 +12,7 @@ class LocalStore {
     return File('$path/token.txt');
   }
 
-  static Future<File> writeUser(String username, token) async {
+  static Future<File> writeUser(String username, String token) async {
     final file = await _localFile;
     //TODO store username and token
     return file.writeAsString(username);
@@ -25,5 +25,10 @@ class LocalStore {
     } catch (e) {
       return "";
     }
+  }
+
+  static void deleteuUser() async {
+    final file = await _localFile;
+    file.delete();
   }
 }

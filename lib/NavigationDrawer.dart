@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kotsys_flutter/CleaningPlan/CleainingPlan.dart';
 import 'package:kotsys_flutter/Dashboard.dart';
 import 'package:kotsys_flutter/Home.dart';
+import 'package:kotsys_flutter/LocalStore.dart';
 import 'package:kotsys_flutter/PhoneBook.dart';
+import 'package:kotsys_flutter/SplashScreen.dart';
 
 class NavigationDrawer extends StatelessWidget {
   NavigationDrawer({required this.context});
@@ -12,16 +14,17 @@ class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
         children: [
           DrawerHeader(
+            // padding: EdgeInsets.zero,
             decoration: BoxDecoration(color: Colors.black),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image(
+                  alignment: Alignment.centerLeft,
                   image: AssetImage("assets/images/SkotSys_Meteor.png"),
                   height: 50,
                 ),
@@ -55,6 +58,12 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.phone,
             onTap: _goToPhonebook,
           ),
+          Expanded(
+            child: SizedBox(
+              height: 10,
+            ),
+          ),
+          _createFooter()
         ],
       ),
     );
@@ -75,6 +84,17 @@ class NavigationDrawer extends StatelessWidget {
         ],
       ),
       onTap: onTap,
+    );
+  }
+
+  Widget _createFooter() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Column(
+        children: [
+          _createDrawerItem(name: "logout", icon: Icons.logout, onTap: _logout),
+        ],
+      ),
     );
   }
 
@@ -106,6 +126,15 @@ class NavigationDrawer extends StatelessWidget {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
       builder: (context) {
         return CleaningPlan();
+      },
+    ), (Route<dynamic> route) => false);
+  }
+
+  void _logout() {
+    LocalStore.deleteuUser();
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+      builder: (context) {
+        return SplashScreen();
       },
     ), (Route<dynamic> route) => false);
   }
