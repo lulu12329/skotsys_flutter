@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kotsys_flutter/services/loginService.dart';
-
+import '../services/loginService.dart';
 import '../Dashboard.dart';
-import '../services/backend.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -15,39 +13,59 @@ class _LoginScreenState extends State<LoginScreen> {
   String username = "";
   String password = "";
 
+  String errorText = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
             children: [
-              //Text("LOGO"),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Image(
+                  alignment: Alignment.center,
+                  image: AssetImage("assets/images/SkotSys_Meteor.png"),
+                  height: 60,
+                ),
+              ),
               Text("SkotSys"),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text("Nutzername"),
-              TextField(
-                onChanged: (s) => {username = s},
-              ),
-              Text("Passwort"),
-              TextField(
-                onChanged: (s) => {password = s},
-              ),
-              TextButton(
-                onPressed: login,
-                child: Text("Login"),
-              ),
-              Text(
-                'login failed',
-                style: TextStyle(color: Colors.red),
-              )
-            ],
+          Padding(
+            padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text("Nutzername oder Email"),
+                  TextField(
+                    onChanged: (s) => {username = s},
+                  ),
+                  Text("Passwort"),
+                  TextField(
+                    onChanged: (s) => {password = s},
+                    obscureText: true,
+                  ),
+                ]),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: login,
+                      child: Text("Login"),
+                    ),
+                    Text(
+                      errorText,
+                      style: TextStyle(color: Colors.red),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ],
       ),
@@ -62,6 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => Dashboard()),
         (Route<dynamic> route) => false,
       );
-    } catch (_) {}
+    } catch (_) {
+      setState(() {
+        errorText = "login failed";
+      });
+    }
   }
 }
