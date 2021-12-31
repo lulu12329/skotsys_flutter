@@ -65,12 +65,6 @@ class HttpClientHelper {
     String address = serverAddress + path;
     Uri uri = Uri.parse(address);
 
-    /* await http.get(address, headers: {
-      HttpHeaders.contentTypeHeader: "application/json",
-      HttpHeaders.authorizationHeader: token
-    }); */
-    ;
-
     return await httpClient.get(uri, headers: {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.authorizationHeader: token
