@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kotsys_flutter/SplashScreen.dart';
+import 'package:kotsys_flutter/views/SplashScreen.dart';
 
 void main() {
   runApp(MyApp());

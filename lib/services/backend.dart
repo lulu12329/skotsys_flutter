@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:kotsys_flutter/cleaningPlan/Cleaner.dart';
-import 'package:kotsys_flutter/cleaningPlan/CleaningPlanData.dart';
-import 'package:kotsys_flutter/cleaningPlan/Room.dart';
+import 'package:kotsys_flutter/views/cleaningPlan/Cleaner.dart';
+import 'package:kotsys_flutter/views/cleaningPlan/CleaningPlanData.dart';
+import 'package:kotsys_flutter/views/cleaningPlan/Room.dart';
 
 class HttpClientHelper {
   static final HttpClientHelper _instance = HttpClientHelper._internal();
@@ -54,18 +54,26 @@ class HttpClientHelper {
     return httpClient.post(uri,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
-          HttpHeaders.authorizationHeader: 'Bearer $token'
+          HttpHeaders.authorizationHeader: token
         },
         body: json.encode(body));
   }
 
-  Future<http.Response> get(String path) {
+  Future<http.Response> get(String path) async {
     if (token == "") throw new Exception();
 
-    Uri uri = Uri.http(serverAddress, "/$path");
-    return httpClient.get(uri, headers: {
+    String address = serverAddress + path;
+    Uri uri = Uri.parse(address);
+
+    /* await http.get(address, headers: {
       HttpHeaders.contentTypeHeader: "application/json",
-      HttpHeaders.authorizationHeader: 'Bearer $token'
+      HttpHeaders.authorizationHeader: token
+    }); */
+    ;
+
+    return await httpClient.get(uri, headers: {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: token
     });
   }
 }

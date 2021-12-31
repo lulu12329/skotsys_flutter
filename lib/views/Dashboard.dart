@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kotsys_flutter/NavigationDrawer.dart';
 
 import 'CustomAppBar.dart';
+import 'NavigationDrawer.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);
@@ -11,7 +11,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -19,7 +18,9 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: CustomAppBar.build(_scaffoldKey, "Dashboard"),
-      drawer: NavigationDrawer(context: context,),
+      drawer: NavigationDrawer(
+        context: context,
+      ),
       body: Center(
         child: Text("Dashboard"),
       ),

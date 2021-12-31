@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/loginService.dart';
+import '../../services/loginService.dart';
 import '../Dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,8 +10,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String username = "";
-  String password = "";
+  //TODO: these values are only for testing and should be removed before release
+  String email = "sa@gmail.com";
+  String password = "password";
 
   String errorText = "";
 
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text("Nutzername oder Email"),
                   TextField(
-                    onChanged: (s) => {username = s},
+                    onChanged: (s) => {email = s},
                   ),
                   Text("Passwort"),
                   TextField(
@@ -74,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void login() async {
     try {
-      await LoginService.login(username, password);
+      await LoginService.login(email, password);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => Dashboard()),

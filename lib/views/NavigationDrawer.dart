@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kotsys_flutter/CleaningPlan/CleainingPlan.dart';
-import 'package:kotsys_flutter/Dashboard.dart';
-import 'package:kotsys_flutter/Home.dart';
+import 'package:kotsys_flutter/views/Dashboard.dart';
 import 'package:kotsys_flutter/LocalStore.dart';
-import 'package:kotsys_flutter/PhoneBook.dart';
-import 'package:kotsys_flutter/loginScreen/LoginScreen.dart';
+
+import 'Home.dart';
+import 'PhoneBook.dart';
+import 'cleaningPlan/CleainingPlan.dart';
+import 'loginScreen/LoginScreen.dart';
 
 class NavigationDrawer extends StatelessWidget {
   NavigationDrawer({required this.context});

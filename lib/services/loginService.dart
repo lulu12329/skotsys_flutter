@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:kotsys_flutter/User.dart';
 import 'package:kotsys_flutter/services/backend.dart';
 
-import '../LocalStore.dart';
-
 class LoginService {
   static Future login(username, password) async {
     HttpClientHelper httpClientHelper = new HttpClientHelper();
@@ -30,7 +28,6 @@ class LoginService {
     if (response.statusCode == 201) {
       dynamic responseBody = json.decode(response.body)["data"];
       User().fromJson(responseBody);
-      httpClientHelper.token = User().token;
     } else {
       throw new Exception('Login failed');
     }

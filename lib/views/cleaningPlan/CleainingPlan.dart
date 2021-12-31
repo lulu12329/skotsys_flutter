@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_timetable_view/flutter_timetable_view.dart';
-import 'package:kotsys_flutter/NavigationDrawer.dart';
 import 'package:kotsys_flutter/services/backend.dart';
 
 import '../CustomAppBar.dart';
-import '../User.dart';
+import '../NavigationDrawer.dart';
 import 'Cleaner.dart';
 
 class CleaningPlan extends StatefulWidget {
@@ -21,9 +21,6 @@ class _CleaningPlandState extends State<CleaningPlan> {
 
   @override
   Widget build(BuildContext context) {
-    User user = User();
-    user.toJson();
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: CustomAppBar.build(_scaffoldKey, "CleaningPlan"),
