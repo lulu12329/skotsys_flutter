@@ -116,4 +116,49 @@ class Role {
     //Dashboard:
     isAllowedToSeeDashboard = roleJson['IsAllowedToSeeDashboard'];
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'HotelID': hotelID,
+      "RoleID": roleID,
+      'Name': name,
+      'Description': description,
+      'IsAllowedToSeePrice': isAllowedToSeePrice,
+      'IsAllowedToGiveDiscount': isAllowedToGiveDiscount,
+      'IsAllowedToEditHotel': isAllowedToEditHotel,
+      'IsAllowedToCreateNewBooking': isAllowedToCreateNewBooking,
+      'IsAllowedToEditBooking': isAllowedToEditBooking,
+      'IsAllowedToDeleteBooking': isAllowedToDeleteBooking,
+      'IsAllowedToSeeBooking': isAllowedToSeeBooking,
+      'IsAllowedToCreateNewRoom': isAllowedToCreateNewRoom,
+      'IsAllowedToEditRoom': isAllowedToEditRoom,
+      'IsAllowedToDeleteRoom': isAllowedToDeleteRoom,
+      'IsAllowedToSeeListOfRooms': isAllowedToSeeListOfRooms,
+      'IsAllowedToCreateNewRoomCategory': isAllowedToCreateNewRoomCategory,
+      'IsAllowedToEditRoomCategory': isAllowedToEditRoomCategory,
+      'IsAllowedToDeleteRoomCategory': isAllowedToDeleteRoomCategory,
+      'IsAllowedToSeeListOfRoomsCategory': isAllowedToSeeListOfRoomsCategory,
+      'IsAllowedToCreateNewCatering': isAllowedToCreateNewCatering,
+      'IsAllowedToEditCatering': isAllowedToEditCatering,
+      'IsAllowedToDeleteCatering': isAllowedToDeleteCatering,
+      'IsAllowedToSeeListOfCaterings': isAllowedToSeeListOfCaterings,
+      'IsAllowedToPrintInvoice': isAllowedToPrintInvoice,
+      'IsAllowedToSeeInvoices': isAllowedToSeeInvoices,
+      'IsAllowedToCreateNewUser': isAllowedToCreateNewUser,
+      'IsAllowedToEditUser': isAllowedToEditUser,
+      'IsAllowedToDeleteUser': isAllowedToDeleteUser,
+      'IsAllowedToLockUser': isAllowedToLockUser,
+      'IsAllowedToSeeListOfUsers': isAllowedToSeeListOfUsers,
+      'IsAllowedToChangeUsersPassword': isAllowedToChangeUsersPassword,
+      'IsAllowedToCreateNewRole': isAllowedToCreateNewRole,
+      'IsAllowedToEditRole': isAllowedToEditRole,
+      'IsAllowedToDeleteRole': isAllowedToDeleteRole,
+      'IsAllowedToSeeListOfRoles': isAllowedToSeeListOfRoles,
+      'IsAllowedToUseCleaningplan': isAllowedToUseCleaningplan,
+      'IsAllowedToEditAllAssignments': isAllowedToEditAllAssignments,
+      'IsAllowedToEditCleaningplan': isAllowedToEditCleaningplan,
+      'IsAllowedToSeeCleaningplan': isAllowedToSeeCleaningplan,
+      'IsAllowedToSeeDashboard': isAllowedToSeeDashboard
+    };
+  }
 }

@@ -4,8 +4,8 @@ import 'package:kotsys_flutter/LocalStore.dart';
 
 import 'Home.dart';
 import 'PhoneBook.dart';
-import 'cleaningPlan/CleainingPlan.dart';
-import 'loginScreen/LoginScreen.dart';
+import 'CleainingPlanScreen.dart';
+import 'LoginScreen.dart';
 
 class NavigationDrawer extends StatelessWidget {
   NavigationDrawer({required this.context});
@@ -126,7 +126,7 @@ class NavigationDrawer extends StatelessWidget {
   void _goToCleaningplan() {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
       builder: (context) {
-        return CleaningPlan();
+        return CleaningPlanScreen();
       },
     ), (Route<dynamic> route) => false);
   }

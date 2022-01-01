@@ -1,9 +1,3 @@
-import 'package:kotsys_flutter/LocalStore.dart';
-import 'package:kotsys_flutter/services/backend.dart';
-import 'package:kotsys_flutter/services/roleService.dart';
-
-import 'models/Role.dart';
-
 class User {
   int id = 0;
   int hotelId = 0;
@@ -17,20 +11,9 @@ class User {
   String email = "";
   String tel = "";
   DateTime birthDate = new DateTime(0);
-  Role role = new Role();
-  String token = "";
-  static final User _instance = User._internal();
+  int role = 0;
 
-  User._internal();
-
-  factory User() {
-    return _instance;
-  }
-
-  void fromJson(Map<String, dynamic> json) async {
-    token = json['token'];
-    HttpClientHelper().token = token;
-
+  User.fromJson(Map<String, dynamic> json) {
     id = json['UserId'];
     hotelId = json['HotelId'];
     placeId = json['PlaceId'];
@@ -43,12 +26,10 @@ class User {
     email = json['Email'];
     tel = json['Tel'];
     birthDate = DateTime.parse(json['Birthdate']);
-    int roleId = json['Role'];
-    role = await RoleService().get(roleId);
-    LocalStore.writeUser();
+    role = json['Role'];
   }
 
-  Map<String, dynamic> toJsonWithToken() {
+  Map<String, dynamic> toJson() {
     return {
       'UserId': id,
       'HotelId': hotelId,
@@ -62,8 +43,6 @@ class User {
       'Email': email,
       'Tel': tel,
       'Birthdate': birthDate.toString(),
-      'token': token,
-      'Role': role.roleID
     };
   }
 }

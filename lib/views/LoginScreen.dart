@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../services/loginService.dart';
-import '../Dashboard.dart';
+import '../services/loginService.dart';
+import 'Dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);

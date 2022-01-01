@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_timetable_view/flutter_timetable_view.dart';
+import 'package:kotsys_flutter/models/user.dart';
 import 'package:kotsys_flutter/services/backend.dart';
 
-import '../CustomAppBar.dart';
-import '../NavigationDrawer.dart';
-import 'Cleaner.dart';
+import 'CustomAppBar.dart';
+import 'NavigationDrawer.dart';
 
-class CleaningPlan extends StatefulWidget {
-  CleaningPlan({Key? key}) : super(key: key);
+class CleaningPlanScreen extends StatefulWidget {
+  CleaningPlanScreen({Key? key}) : super(key: key);
 
   @override
   _CleaningPlandState createState() => _CleaningPlandState();
 }
 
-class _CleaningPlandState extends State<CleaningPlan> {
+class _CleaningPlandState extends State<CleaningPlanScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Cleaner> cleaners = new List.empty();
+  List<User> cleaners = new List.empty();
   List<LaneEvents> laneEvents = new List.empty();
 
   @override
@@ -35,7 +35,7 @@ class _CleaningPlandState extends State<CleaningPlan> {
   void initState() {
     super.initState();
 
-    HttpClientHelper().getCleaningPlanData().then((data) {
+    /* HttpClientHelper().getCleaningPlanData().then((data) {
       data.cleaners.forEach((cleaner) {
         List<TableEvent> tableEvents = new List.empty();
         cleaner.roomsToClean.forEach((roomToClean) {
@@ -53,6 +53,6 @@ class _CleaningPlandState extends State<CleaningPlan> {
         laneEvents.add(
             LaneEvents(lane: Lane(name: cleaner.name), events: tableEvents));
       });
-    });
+    }); */
   }
 }

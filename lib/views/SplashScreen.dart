@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kotsys_flutter/views/Dashboard.dart';
 
 import '../LocalStore.dart';
-import 'loginScreen/LoginScreen.dart';
+import 'LoginScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);

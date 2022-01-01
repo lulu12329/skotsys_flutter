@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:kotsys_flutter/User.dart';
+import 'package:kotsys_flutter/Session.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LocalStore {
@@ -16,7 +16,7 @@ class LocalStore {
 
   static Future<File> writeUser() async {
     final file = await _localFile;
-    String jsonString = json.encode(User().toJsonWithToken());
+    String jsonString = json.encode(Session().toJson());
     return file.writeAsString(jsonString);
   }
 
