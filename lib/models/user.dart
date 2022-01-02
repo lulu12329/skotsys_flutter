@@ -13,6 +13,8 @@ class User {
   DateTime birthDate = new DateTime(0);
   int role = 0;
 
+  User();
+
   User.fromJson(Map<String, dynamic> json) {
     id = json['UserId'];
     hotelId = json['HotelId'];

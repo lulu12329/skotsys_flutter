@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:kotsys_flutter/session.dart';
 
 import 'package:kotsys_flutter/views/Dashboard.dart';
 
@@ -32,6 +34,7 @@ class _SplashScreendState extends State<SplashScreen> {
 
   void _checkToken() async {
     String t = await LocalStore.readUser();
+    Session().fromJson(json.decode(t));
     MaterialPageRoute nextPage;
     if (t == "") {
       nextPage = MaterialPageRoute(builder: (context) => LoginScreen());

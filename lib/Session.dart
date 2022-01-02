@@ -5,9 +5,9 @@ import 'package:kotsys_flutter/services/backend.dart';
 import 'models/user.dart';
 
 class Session {
-  late User activeUser;
+  User activeUser = User();
   String token = "";
-  late Role role;
+  Role role = Role();
   static final Session _instance = Session._internal();
 
   Session._internal();

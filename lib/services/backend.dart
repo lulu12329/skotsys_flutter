@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:kotsys_flutter/session.dart';
 
 class HttpClientHelper {
   static final HttpClientHelper _instance = HttpClientHelper._internal();
   final String serverAddress = "http://192.168.10.94:3000/";
-  String token = "";
+  String token = Session().token;
   static final http.Client httpClient = http.Client();
 
   HttpClientHelper._internal();
@@ -12,18 +13,6 @@ class HttpClientHelper {
   factory HttpClientHelper() {
     return _instance;
   }
-
-  /* Future<CleaningPlanData> getCleaningPlanData() async {
-    List<Cleaner> cleaners = List.empty();
-    Cleaner cleaner1 = Cleaner('test', '');
-    cleaner1.roomsToClean = List.filled(
-        1,
-        RoomToClean(101, "dirty", DateTime.parse("2021-11-28 10:20:00"),
-            DateTime.parse("2021-11-28 11:00:00")));
-
-    cleaners.add(cleaner1);
-    return CleaningPlanData(cleaners);
-  } */
 
   Future<http.Response> post(String path, Map<String, dynamic> body) {
     if (token == "") throw new Exception();
