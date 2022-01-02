@@ -10,8 +10,8 @@ class Room {
   RoomState roomState = RoomState.free;
 
   Room.fromJson(dynamic room) {
-    roomid = room['RoomId'];
-    hotelid = room['Hotelid'];
+    roomid = room['RoomID'];
+    hotelid = room['HotelID'];
     roomName = room['RoomName'];
     numBeds = room['NumBeds'];
     category = room['Category'];
