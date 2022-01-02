@@ -15,7 +15,11 @@ class Room {
     roomName = room['RoomName'];
     numBeds = room['NumBeds'];
     category = room['Category'];
-    price = room['Price'];
-    roomState = RoomState.values[room['State']];
+    var priceValue = room['Price'];
+    if (priceValue is int)
+      price = priceValue.toDouble();
+    else
+      price = priceValue;
+    roomState = RoomState.values[room['Status']];
   }
 }

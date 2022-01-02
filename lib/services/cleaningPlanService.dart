@@ -8,25 +8,24 @@ import 'package:kotsys_flutter/services/backend.dart';
 class CleaningPlanService {
   HttpClientHelper httpClientHelper = new HttpClientHelper();
 
-  Future<Role> get(int id) async {
+  Future<CleaningPlanData> get(int id) async {
     Response response = await httpClientHelper.get('roles/$id');
 
     //handling response
     if (response.statusCode == 200) {
-      return Role.fromJson(json.decode(response.body)["data"]);
+      return CleaningPlanData.fromJson(json.decode(response.body)["data"]);
     } else {
       throw new Exception();
     }
   }
 
-  Future<Role> getForDate(DateTime date) async {
-    Response response =
-        await httpClientHelper.get('cleaningPlan/${date.toString}');
+  Future<CleaningPlanData> getForDate(DateTime date) async {
+    Response response = await httpClientHelper
+        .get('cleaningPlan/day/${date.toIso8601String()}');
 
     //handling response
     if (response.statusCode == 200) {
-      return Role();
-      //return CleaningPlanData.fromJson(json.decode(response.body)["data"]);
+      return CleaningPlanData.fromJson(json.decode(response.body)["data"]);
     } else {
       throw new Exception();
     }

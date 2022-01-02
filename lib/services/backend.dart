@@ -29,7 +29,7 @@ class HttpClientHelper {
   }
 
   Future<http.Response> get(String path) async {
-    if (token == "") throw new Exception();
+    if (token == "") throw new Exception('token not set Exception');
 
     String address = serverAddress + path;
     Uri uri = Uri.parse(address);

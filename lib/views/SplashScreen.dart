@@ -36,7 +36,7 @@ class _SplashScreendState extends State<SplashScreen> {
     String t = await LocalStore.readUser();
     Session().fromJson(json.decode(t));
     MaterialPageRoute nextPage;
-    if (t == "") {
+    if (Session().token == "") {
       nextPage = MaterialPageRoute(builder: (context) => LoginScreen());
     } else {
       nextPage = MaterialPageRoute(builder: (context) => Dashboard());
