@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:kotsys_flutter/Session.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LocalStore {
   static Future<String> _localPath() async {
+    if (kIsWeb) {
+      throw new Exception("running on web");
+    }
     final dir = await getApplicationDocumentsDirectory();
     return dir.path;
   }
@@ -14,10 +18,12 @@ class LocalStore {
     return File('$path/token.txt');
   }
 
-  static Future<File> writeUser() async {
-    final file = await _localFile;
-    String jsonString = json.encode(Session().toJson());
-    return file.writeAsString(jsonString);
+  static writeUser() async {
+    try {
+      final file = await _localFile;
+      String jsonString = json.encode(Session().toJson());
+      return file.writeAsString(jsonString);
+    } catch (_) {}
   }
 
   static Future<String> readUser() async {
@@ -30,7 +36,9 @@ class LocalStore {
   }
 
   static void deleteuUser() async {
-    final file = await _localFile;
-    file.delete();
+    try {
+      final file = await _localFile;
+      file.delete();
+    } catch (_) {}
   }
 }

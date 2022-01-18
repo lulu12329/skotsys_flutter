@@ -33,19 +33,21 @@ class _SplashScreendState extends State<SplashScreen> {
   }
 
   void _checkToken() async {
-    String t = await LocalStore.readUser();
-    Session().fromJson(json.decode(t));
-    MaterialPageRoute nextPage;
-    if (Session().token == "") {
-      nextPage = MaterialPageRoute(builder: (context) => LoginScreen());
-    } else {
-      nextPage = MaterialPageRoute(builder: (context) => Dashboard());
+    try {
+      String t = await LocalStore.readUser();
+      Session().fromJson(json.decode(t));
+      if (Session().token == "") throw Exception("no token stored");
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Dashboard()),
+        (Route<dynamic> route) => false,
+      );
+    } catch (_) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+        (Route<dynamic> route) => false,
+      );
     }
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      nextPage,
-      (Route<dynamic> route) => false,
-    );
   }
 }

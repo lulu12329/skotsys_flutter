@@ -1,6 +1,6 @@
 import 'package:kotsys_flutter/models/Room.dart';
 import 'package:kotsys_flutter/models/user.dart';
-import 'package:kotsys_flutter/models/cleaningPlanEntry.dart';
+import 'CleaningPlanEntry.dart';
 
 class CleaningPlanData {
   List<User> cleaners = [];

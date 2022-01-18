@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:kotsys_flutter/models/CleaningPlanData.dart';
-import 'package:kotsys_flutter/models/Role.dart';
 import 'package:kotsys_flutter/services/backend.dart';
 
 class CleaningPlanService {
