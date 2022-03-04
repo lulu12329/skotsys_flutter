@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kotsys_flutter/models/CleaningPlanData.dart';
 import 'package:kotsys_flutter/models/CleaningPlanEntry.dart';
 import 'package:kotsys_flutter/services/cleaningPlanService.dart';
-import 'package:kotsys_flutter/views/TableWithDateSelector.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 
 import 'CustomAppBar.dart';
 import 'NavigationDrawer.dart';
+import 'TableWithDateSelector.dart';
 
 class CleaningPlanScreen extends StatefulWidget {
   CleaningPlanScreen({Key? key}) : super(key: key);
@@ -21,11 +21,11 @@ class _CleaningPlandState extends State<CleaningPlanScreen> {
   DateTime selectedDate = DateTime.now();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final ScrollControllers myScrollControllers = ScrollControllers();
 
-  StickyheadersTableWithDateSelector table = StickyheadersTableWithDateSelector(
+  StickyHeadersTableWithDateSelector table = StickyHeadersTableWithDateSelector(
     columnsLength: 0,
     rowsLength: 0,
+    selectedDate: DateTime.now(),
     columnsTitleBuilder: (i) => Text(""),
     contentCellBuilder: (i, j) => Text(""),
     rowsTitleBuilder: (i) => Text(""),
@@ -74,7 +74,7 @@ class _CleaningPlandState extends State<CleaningPlanScreen> {
 
   void _updateTable() {
     setState(() {
-      this.table = StickyheadersTableWithDateSelector(
+      this.table = StickyHeadersTableWithDateSelector(
         dateCallback: newDate,
         selectedDate: selectedDate,
         columnsLength: data.rooms.length,
